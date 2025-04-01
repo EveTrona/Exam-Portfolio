@@ -1,11 +1,9 @@
 import type React from "react";
 import "@/app/globals.css";
-import { Inter } from "next/font/google";
+/* import { Inter } from "next/font/google"; */
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "next-themes";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "个人展示网站",
@@ -19,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={"font-nunito"}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

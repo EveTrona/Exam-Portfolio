@@ -198,3 +198,11 @@
   }
 }
 
+/*因为链接GoogleFont总是会在build时报错，所以在这边改成了本地字体*/
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito.ttf') format('ttf');
+  font-weight: 400; /* 根据实际需求调整 */
+  font-style: normal;
+  font-display: swap; /* 优化加载体验 */
+}
