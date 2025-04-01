@@ -1,4 +1,3 @@
-// components/hero.tsx
 "use client";
 
 import { Suspense, useRef, useState, useEffect } from "react";
@@ -25,7 +24,17 @@ function Loader() {
 }
 
 // 技能图标组件（漂浮的 3D 球体）
-function SkillIcon({ position, color, label, scale = 1 }) {
+function SkillIcon({
+  position,
+  color,
+  label,
+  scale = 1,
+}: {
+  position: [number, number, number];
+  color: string;
+  label: string;
+  scale?: number;
+}) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -80,7 +89,8 @@ function Particles() {
 
   useFrame((state) => {
     if (particlesRef.current) {
-      const positions = particlesRef.current.geometry.attributes.position.array;
+      const positions = particlesRef.current.geometry.attributes.position
+        .array as Float32Array;
       for (let i = 0; i < particleCount; i++) {
         positions[i * 3 + 1] +=
           Math.sin(state.clock.getElapsedTime() + i) * 0.01;
@@ -93,18 +103,8 @@ function Particles() {
   return (
     <points ref={particlesRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          array={positions}
-          itemSize={3}
-          count={particleCount}
-        />
-        <bufferAttribute
-          attach="attributes-color"
-          array={colors}
-          itemSize={3}
-          count={particleCount}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-color" args={[colors, 3]} />
       </bufferGeometry>
       <pointsMaterial size={0.1} vertexColors transparent opacity={0.8} />
     </points>

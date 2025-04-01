@@ -6,6 +6,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
 
 const projects = [
   {
@@ -72,7 +73,7 @@ export default function Projects() {
             >
               <Card className="overflow-hidden h-full flex flex-col">
                 <div className="overflow-hidden">
-                  <img
+                  <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
                     className="w-full h-[200px] object-cover transition-transform hover:scale-105 duration-300"

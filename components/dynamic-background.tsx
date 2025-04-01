@@ -1,10 +1,9 @@
-// components/dynamic-background.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
-// 将 Particle 类移到组件的顶级作用域
+// Particle 类保持不变
 class Particle {
   x: number;
   y: number;
@@ -12,8 +11,8 @@ class Particle {
   speedX: number;
   speedY: number;
   color: string;
-  canvas: HTMLCanvasElement; // 添加 canvas 属性
-  theme: string; // 添加 theme 属性
+  canvas: HTMLCanvasElement;
+  theme: string;
 
   constructor(canvas: HTMLCanvasElement, theme: string) {
     this.canvas = canvas;
@@ -58,30 +57,34 @@ export default function DynamicBackground() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let particles: Particle[] = [];
+    const particles: Particle[] = [];
 
-    // 设置canvas尺寸为窗口大小
+    // 初始化画布和粒子
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particleCount = Math.floor((canvas.width * canvas.height) / 10000);
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle(canvas, theme ?? "light"));
+    }
+
+    // 调整画布大小的函数
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initParticles();
+      particles.length = 0; // 清空现有粒子
+      const newParticleCount = Math.floor(
+        (canvas.width * canvas.height) / 10000
+      );
+      for (let i = 0; i < newParticleCount; i++) {
+        particles.push(new Particle(canvas, theme ?? "light"));
+      }
     };
 
     window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
 
-    function initParticles() {
-      particles = [];
-      const particleCount = Math.floor((canvas.width * canvas.height) / 10000);
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle(canvas, theme)); // 现在可以安全使用 Particle 类
-      }
-    }
-
-    function connectParticles() {
+    // 连接粒子的函数
+    const connectParticles = () => {
       const maxDistance = 150;
-
       for (let i = 0; i < particles.length; i++) {
         for (let j = i; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -102,9 +105,10 @@ export default function DynamicBackground() {
           }
         }
       }
-    }
+    };
 
-    function animate() {
+    // 动画函数
+    const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const particle of particles) {
@@ -114,10 +118,11 @@ export default function DynamicBackground() {
 
       connectParticles();
       animationFrameId = requestAnimationFrame(animate);
-    }
+    };
 
     animate();
 
+    // 清理函数
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationFrameId);
