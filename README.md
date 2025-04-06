@@ -10,9 +10,9 @@
         响应式设计：结合 Next.js 的动态布局和Shadcn， Aceternity UI 的响应式支持，我实现了移动端和桌面端的无缝适配，比如通过 useMobile 钩子动态调整 3D 场景的粒子数量。
 3. 动画与 3D 效果：Three.js
    为了让项目更具吸引力和互动性，我使用 Three.js 实现了 3D 可视化效果，同时满足要求。
-![hero]('/public/images/hero.png')
-![about]('/public/images/about.png')
-![skills]('/public/images/skills.png')
+![hero](public/images/hero.png)
+![about](public/images/about.png)
+![skills](public/images/skills.png)
 1. 技术挑战与解决方案
     Three.js 与 React 集成：初期遇到 Text 组件的材质错误问题，我通过切换到 Text3D 并调整材质配置解决了兼容性问题。
     动画流畅性：通过降低复杂度和优化 useFrame 的计算逻辑，确保了 60fps 的动画效果。
