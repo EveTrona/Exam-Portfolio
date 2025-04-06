@@ -72,7 +72,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">邮箱</p>
-                  <p className="font-medium">example@example.com</p>
+                  <p className="font-medium">qq457137168@outlook.com</p>
                 </div>
               </div>
 
@@ -82,7 +82,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">电话</p>
-                  <p className="font-medium">+86 123 4567 8910</p>
+                  <p className="font-medium">+86 18711655141</p>
                 </div>
               </div>
 
@@ -92,7 +92,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">地址</p>
-                  <p className="font-medium">上海市浦东新区某某路123号</p>
+                  <p className="font-medium">湖南省常德市</p>
                 </div>
               </div>
             </div>

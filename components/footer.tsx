@@ -13,28 +13,28 @@ export default function Footer() {
 
           <div className="flex space-x-4">
             <a
-              href="#"
+              href="https://github.com/EveTrona"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <Github className="h-5 w-5" />
               <span className="sr-only">Github</span>
             </a>
             <a
-              href="#"
+              href="https://x.com/KleinMo64486448?t=hmlqtfoREvVZOyZC3MN7zg&s=05"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <Twitter className="h-5 w-5" />
               <span className="sr-only">Twitter</span>
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/%E5%88%98-%E5%AE%B6%E8%93%AC-a122b7311?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/kleineve1?igsh=anV0Z285a3d2OWk2"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <Instagram className="h-5 w-5" />

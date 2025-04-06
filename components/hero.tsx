@@ -144,7 +144,7 @@ function Scene() {
         <Text3D
           position={[0, 2, 0]}
           font="/fonts/Nunito_Bold.json" // 确保字体文件存在
-          size={0.5}
+          size={0.7}
           height={0.1}
           curveSegments={12}
           bevelEnabled
@@ -158,7 +158,7 @@ function Scene() {
             color="#ffffff"
             metalness={0.8}
             roughness={0.2}
-            emissive="#ffffff"
+            emissive="#00ffff"
             emissiveIntensity={0.5}
           />
         </Text3D>

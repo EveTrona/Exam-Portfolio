@@ -5,43 +5,24 @@ import { motion, useInView } from "framer-motion";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 
 const projects = [
   {
-    title: "3D产品展示平台",
-    description:
-      "基于Three.js开发的3D产品展示平台，支持产品360度旋转查看、材质更换等功能。",
-    image: "/placeholder.svg?height=300&width=500",
-    tags: ["React", "Three.js", "WebGL", "GSAP"],
-    demoLink: "#",
+    title: "MontePi",
+    description: "基于蒙特卡罗方法计算圆周率",
+    image: "/images/montePi.png",
+    tags: ["React", "TypeScript"],
+    demoLink: "/montePi",
     codeLink: "#",
   },
   {
-    title: "AI辅助设计工具",
-    description:
-      "结合AI技术的Web设计工具，可根据用户需求自动生成UI组件和布局方案。",
-    image: "/placeholder.svg?height=300&width=500",
-    tags: ["Next.js", "TypeScript", "TensorFlow.js", "Tailwind CSS"],
-    demoLink: "#",
-    codeLink: "#",
-  },
-  {
-    title: "响应式电商网站",
-    description:
-      "为某品牌开发的响应式电商网站，包含产品展示、购物车、支付等完整功能。",
-    image: "/placeholder.svg?height=300&width=500",
-    tags: ["React", "Redux", "Node.js", "MongoDB"],
-    demoLink: "#",
-    codeLink: "#",
-  },
-  {
-    title: "数据可视化仪表盘",
-    description: "企业级数据可视化仪表盘，支持多种图表类型和实时数据更新。",
-    image: "/placeholder.svg?height=300&width=500",
-    tags: ["Vue.js", "D3.js", "Express", "Socket.io"],
-    demoLink: "#",
+    title: "Pacman游戏",
+    description: "吃豆人小游戏",
+    image: "/images/pacman.png",
+    tags: ["Next.js", "TypeScript"],
+    demoLink: "/pacman",
     codeLink: "#",
   },
 ];
@@ -76,7 +57,11 @@ export default function Projects() {
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
-                    className="w-full h-[200px] object-cover transition-transform hover:scale-105 duration-300"
+                    className=" w-full h-[300px] object-cover transition-transform hover:scale-105 duration-300"
+                    width={250}
+                    height={350}
+                    /* fill */
+                    /* sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" */
                   />
                 </div>
                 <CardContent className="p-6 flex-grow">
@@ -103,7 +88,7 @@ export default function Projects() {
                       演示
                     </a>
                   </Button>
-                  <Button variant="outline" size="sm" asChild>
+                  {/*                   <Button variant="outline" size="sm" asChild>
                     <a
                       href={project.codeLink}
                       target="_blank"
@@ -112,7 +97,7 @@ export default function Projects() {
                       <Github className="mr-2 h-4 w-4" />
                       代码
                     </a>
-                  </Button>
+                  </Button> */}
                 </CardFooter>
               </Card>
             </motion.div>
