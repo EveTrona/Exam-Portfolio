@@ -358,7 +358,7 @@ export default function Skills() {
           ].map((tool) => (
             <div
               key={tool}
-              className="p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+              className="p-4 bg-blue-200 hover:bg-blue-400 dark:bg-gray-800 rounded-lg dark:hover:bg-gray-700 transition-colors mb-2 "
             >
               {tool}
             </div>

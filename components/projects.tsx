@@ -28,8 +28,17 @@ const projects = [
 ];
 
 export default function Projects() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.1 });
+  const titleRef = useRef(null);
+  const isTitleInView = useInView(titleRef, { once: false, amount: 0.1 });
+
+  const ref0 = useRef(null);
+  const is0InView = useInView(ref0, { once: false, amount: 0.1 });
+
+  const ref1 = useRef(null);
+  const is1InView = useInView(ref1, { once: false, amount: 0.1 });
+
+  const refs = [ref0, ref1];
+  const views = [is0InView, is1InView];
 
   return (
     <section id="projects" className="py-20">
@@ -37,9 +46,9 @@ export default function Projects() {
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={isTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
-          ref={ref}
+          ref={titleRef}
         >
           项目作品
         </motion.h2>
@@ -49,8 +58,11 @@ export default function Projects() {
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              animate={
+                views[index] ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+              }
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              ref={refs[index]}
             >
               <Card className="overflow-hidden h-full flex flex-col">
                 <div className="overflow-hidden">
@@ -60,8 +72,6 @@ export default function Projects() {
                     className=" w-full h-[300px] object-cover transition-transform hover:scale-105 duration-300"
                     width={250}
                     height={350}
-                    /* fill */
-                    /* sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" */
                   />
                 </div>
                 <CardContent className="p-6 flex-grow">
@@ -88,16 +98,6 @@ export default function Projects() {
                       演示
                     </a>
                   </Button>
-                  {/*                   <Button variant="outline" size="sm" asChild>
-                    <a
-                      href={project.codeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="mr-2 h-4 w-4" />
-                      代码
-                    </a>
-                  </Button> */}
                 </CardFooter>
               </Card>
             </motion.div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { RefObject, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import dynamic from "next/dynamic";
@@ -12,7 +12,13 @@ const World = dynamic(
   }
 );
 
-function GlobeDemo({ isInView }: { isInView: boolean }) {
+function GlobeDemo({
+  isInView,
+  earthRef,
+}: {
+  isInView: boolean;
+  earthRef: RefObject<null>;
+}) {
   const globeConfig = {
     pointSize: 6,
     globeColor: "#062056",
@@ -446,6 +452,7 @@ function GlobeDemo({ isInView }: { isInView: boolean }) {
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative flex items-center justify-center w-full h-[400px]"
+      ref={earthRef}
     >
       <div
         className="w-[400px] h-[400px]"
@@ -458,8 +465,29 @@ function GlobeDemo({ isInView }: { isInView: boolean }) {
 }
 
 export default function About() {
-  const ref = useRef(null);
+  /*   const ref = useRef(null);
   const isInView = useInView(ref, {
+    once: false,
+    amount: 0.5, // 增加到 50% 进入视口时触发
+    margin: "0px 0px -100px 0px", // 底部延迟退出 100px
+  }); */
+
+  const titleRef = useRef(null);
+  const isTitleInView = useInView(titleRef, {
+    once: false,
+    amount: 0.5, // 增加到 50% 进入视口时触发
+    margin: "0px 0px -100px 0px", // 底部延迟退出 100px
+  });
+
+  const earthRef = useRef(null);
+  const isEarthInView = useInView(earthRef, {
+    once: false,
+    amount: 0.5, // 增加到 50% 进入视口时触发
+    margin: "0px 0px -100px 0px", // 底部延迟退出 100px
+  });
+
+  const infoRef = useRef(null);
+  const isInfoInView = useInView(infoRef, {
     once: false,
     amount: 0.5, // 增加到 50% 进入视口时触发
     margin: "0px 0px -100px 0px", // 底部延迟退出 100px
@@ -471,9 +499,9 @@ export default function About() {
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={isTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          ref={ref}
+          ref={titleRef}
         >
           关于我
         </motion.h2>
@@ -481,16 +509,19 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center min-h-[400px]">
           {/* 左侧：地球 */}
           <div className="flex justify-center items-center h-full w-full">
-            <GlobeDemo isInView={isInView} />
+            <GlobeDemo isInView={isEarthInView} earthRef={earthRef} />
           </div>
 
           {/* 右侧：个人信息 */}
           <div className="flex items-center h-full">
             <motion.div
               initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+              animate={
+                isInfoInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }
+              }
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="w-full"
+              ref={infoRef}
             >
               <h3 className="text-2xl font-bold mb-4">个人简介</h3>
               <p className="text-muted-foreground mb-6">

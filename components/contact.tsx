@@ -11,8 +11,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 export default function Contact() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  // 👇 所有 ref 都集中放置在这里
+  const titleRef = useRef(null);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+
+  const titleInView = useInView(titleRef, { once: false, amount: 0.3 });
+  const leftInView = useInView(leftRef, { once: false, amount: 0.3 });
+  const rightInView = useInView(rightRef, { once: false, amount: 0.3 });
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -32,13 +39,11 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 模拟表单提交
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormState({ name: "", email: "", message: "" });
 
-      // 重置提交状态
       setTimeout(() => {
         setIsSubmitted(false);
       }, 3000);
@@ -51,50 +56,52 @@ export default function Contact() {
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
-          ref={ref}
+          ref={titleRef}
         >
           联系我
         </motion.h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <motion.div
+            ref={leftRef}
             initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            animate={leftInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.6 }}
           >
             <h3 className="text-2xl font-bold mb-6">联系信息</h3>
             <div className="space-y-6 mb-8">
-              <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                  <Mail className="h-5 w-5 text-primary" />
+              {/* 联系方式项 */}
+              {[
+                {
+                  icon: <Mail className="h-5 w-5 text-primary" />,
+                  label: "邮箱",
+                  value: "qq457137168@outlook.com",
+                },
+                {
+                  icon: <Phone className="h-5 w-5 text-primary" />,
+                  label: "电话",
+                  value: "+86 18711655141",
+                },
+                {
+                  icon: <MapPin className="h-5 w-5 text-primary" />,
+                  label: "地址",
+                  value: "湖南省常德市",
+                },
+              ].map((item, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">
+                      {item.label}
+                    </p>
+                    <p className="font-medium">{item.value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">邮箱</p>
-                  <p className="font-medium">qq457137168@outlook.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                  <Phone className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">电话</p>
-                  <p className="font-medium">+86 18711655141</p>
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                  <MapPin className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">地址</p>
-                  <p className="font-medium">湖南省常德市</p>
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className="h-[300px]">
@@ -116,8 +123,9 @@ export default function Contact() {
           </motion.div>
 
           <motion.div
+            ref={rightRef}
             initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            animate={rightInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Card>
