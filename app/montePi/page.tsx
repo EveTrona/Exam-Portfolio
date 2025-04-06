@@ -31,7 +31,8 @@ export default function MonteCarloPi() {
   };
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const mount = mountRef.current;
+    if (!mount) return;
 
     const scene = new THREE.Scene();
     sceneRef.current = scene;
@@ -43,7 +44,7 @@ export default function MonteCarloPi() {
     );
     const renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.domElement);
+    mount.appendChild(renderer.domElement);
 
     const particles = new THREE.BufferGeometry();
     const particleCount = 5000;
@@ -90,9 +91,10 @@ export default function MonteCarloPi() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      mountRef.current?.removeChild(renderer.domElement);
+      if (mount) mount.removeChild(renderer.domElement);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty array intentional for mount-only effect
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -157,15 +159,11 @@ export default function MonteCarloPi() {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-900 to-purple-600 overflow-hidden">
-      {/* 3D Background */}
       <div ref={mountRef} className="absolute top-0 left-0 w-full h-full" />
-
-      {/* Main content */}
       <div className="relative z-10 max-w-md w-full p-6 rounded-2xl bg-white/90 backdrop-blur-md shadow-2xl">
         <h1 className="text-3xl font-bold text-center text-blue-900 mb-4">
           Monte Carlo π
         </h1>
-
         <div className="relative mb-4">
           <canvas
             ref={canvasRef}
@@ -177,7 +175,6 @@ export default function MonteCarloPi() {
             Points: {points.length}
           </div>
         </div>
-
         <div className="text-center space-y-1 mb-4">
           <p className="text-blue-800 text-lg font-medium">
             Estimated π: <strong>{piEstimate.toFixed(5)}</strong>
@@ -187,7 +184,6 @@ export default function MonteCarloPi() {
             Inside/Total Points: {insideCount} / {points.length}
           </p>
         </div>
-
         <div className="flex justify-center gap-4">
           <button
             onClick={handleStart}
